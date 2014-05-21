@@ -26,12 +26,13 @@ $(NAME):	$(OBJ_LIB)
 	@ar -rc ../$(NAME).a $(OBJ_LIB)
 	@ranlib ../$(NAME).a
 	@echo ""
-	@echo "\033[33m"Compilation of libft.a : "\033[32m"Success"\033[0m"
+	@printf '\033[33mCompilation of %s: \033[32mSuccess \
+\033[34m[\033[32m✔\033[34m]\n' $(NAME)
 
-$(OBJ_LIB):		$(HEAD)
+$(OBJ_LIB):	$(HEAD)
 
 %.o:		%.c
-	@echo -n .
+	@echo -n _
 	@$(CC) $(CFLAGS) -I. -c $< -o $@ $(INC)
 
 clean:

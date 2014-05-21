@@ -6,7 +6,7 @@
 #    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/05/16 20:02:58 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/05/21 14:11:55 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,7 @@ SERVEUR_INC_FILES	=	$(SERVEUR).h
 
 SERVEUR_INC_SRC		=	$(addprefix $(SERVEUR)_dir/$(INC_DIR), $(SERVEUR_INC_FILES))
 
-SERVEUR_FILES		=	$(SERVEUR).c \
-						send.c \
-						cmd.c
+SERVEUR_FILES		=	$(SERVEUR).c
 
 SERVEUR_SRC			=	$(addprefix $(SERVEUR)_dir/$(SRC_DIR), $(SERVEUR_FILES))
 
@@ -45,6 +43,7 @@ CLIENT_INC_FILES	=	$(CLIENT).h
 CLIENT_INC_SRC		=	$(addprefix $(CLIENT)_dir/$(INC_DIR), $(CLIENT_INC_FILES))
 
 CLIENT_FILES		=	$(CLIENT).c \
+						read_write.c
 
 CLIENT_SRC			=	$(addprefix $(CLIENT)_dir/$(SRC_DIR), $(CLIENT_FILES))
 

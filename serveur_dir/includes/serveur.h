@@ -6,38 +6,40 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/17 20:51:24 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/21 13:34:37 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVEUR_H
-# define SERVEUR_H
-# include <stdlib.h>
+#ifndef SERVER_H
+#define SERVER_H
+
+# include <sys/types.h>
 # include <sys/socket.h>
-# include <netdb.h>
-# include <unistd.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
-# include <dirent.h>
-# include <signal.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <libft.h>
+# include <unistd.h>
+# include <netdb.h>
 
-# define	EOFT	(':')
-# define	B_SIZE	(4096)
-# define	PUTF	(1)
-# define	CMD		(2)
+# define INVALID_SOCKET -1
+# define SOCKET_ERROR -1
+# define CRLF					("\r\n")
+# define MAX_CLIENTS			(100)
+# define BUF_SIZE				(1024)
+# define NAME_LEN				(9)
 
-int		send_msg(int socket, char *msg, int flag);
-int		send_error(int socket, char *msg);
+typedef struct sockaddr_in		t_sockaddr_in;
+typedef struct sockaddr			t_sockaddr;
+typedef struct in_addr			t_in_addr;
+typedef struct					s_client
+{
+	int							sock;
+	char						name[NAME_LEN];
+}								t_client;
 
-char	*get_pwd();
-void	ft_ls(int cs);
-int		ft_cd(int cs, char *dir, char *home);
-
-int		ft_putf(int cs, char *buff, int size);
-
+static int read_client(int sock, char *buffer);
+static void write_client(int sock, const char *buffer);
+static void send_message_to_all_clients(t_client *clients, t_client client, int actual, const char *buffer, char from_server);
+static void remove_client(t_client *clients, int to_remove, int *actual);
+static void clear_clients(t_client *clients, int actual);
 
 #endif
