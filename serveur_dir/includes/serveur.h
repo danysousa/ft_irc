@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 13:34:37 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/21 16:33:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,19 @@ typedef struct					s_client
 	int							sock;
 	char						name[NAME_LEN];
 }								t_client;
+typedef struct					s_server
+{
+	int							sock;
+	int							max;
+	fd_set						rdfs;
+	t_client					clients[MAX_CLIENTS];
+}								t_server;
 
-static int read_client(int sock, char *buffer);
-static void write_client(int sock, const char *buffer);
-static void send_message_to_all_clients(t_client *clients, t_client client, int actual, const char *buffer, char from_server);
-static void remove_client(t_client *clients, int to_remove, int *actual);
-static void clear_clients(t_client *clients, int actual);
+int		read_client(int sock, char *buffer);
+void	write_client(int sock, const char *buffer);
+void	send_message_to_all_clients(t_client *clients, t_client client, int actual, const char *buffer, char from_server);
+void	clear_clients(t_client *clients, int actual);
+int		new_client(t_server *server, int *actual, char *buff);
+void	client_talking(t_server *server, int actual, char *buff);
 
 #endif

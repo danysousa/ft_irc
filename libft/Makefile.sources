@@ -28,6 +28,7 @@ SRC_LIB		=	put/ft_putstr.c			\
 				str/ft_strdup.c			\
 				str/ft_strsplit.c		\
 				str/ft_strsub.c			\
+				str/ft_strncat.c		\
 				\
 				tab/ft_tabsize.c		\
 				\
@@ -42,6 +43,7 @@ SRC_LIB		=	put/ft_putstr.c			\
 				mem/ft_memrealloc.c		\
 				mem/ft_memdel.c			\
 				mem/ft_memcpy.c			\
+				mem/ft_memmove.c		\
 				\
 				is/ft_isalpha.c			\
 				is/ft_isascii.c			\

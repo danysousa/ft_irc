@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/28 16:27:32 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 14:57:41 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/21 16:26:57 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char		*ft_strjoin(char *str1, char *str2);
 char		*ft_strdup(char *str);
 char		*ft_strsub(char const *s, size_t start, size_t len);
 char		**ft_strsplit(char const *s, char c);
+char		*ft_strncat(char *dest, const char *src, size_t n);
 
 /*
 **	TAB
@@ -137,6 +138,7 @@ char		*ft_strnew(size_t size);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		ft_memdel(void **mem);
+void		*ft_memmove(void *dest, const void *src, size_t n);
 
 /*
 **	ERROR
