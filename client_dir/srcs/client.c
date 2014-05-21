@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:51:57 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 15:26:39 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/21 18:21:40 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <libft.h>
 #include "../includes/client.h"
 
@@ -20,6 +21,22 @@ static void		do_select(int sock, fd_set *rdfs)
 	FD_SET(sock, rdfs);
 	if (select(sock + 1, rdfs, NULL, NULL, NULL) == -1)
 		exit_error("select");
+}
+
+char			*pseudo()
+{
+	int		r;
+	char	*line;
+
+	write(1, "What's your name ?: ", 20);
+	while ((r = get_next_line(0, &line)) > 0)
+	{
+		if (ft_strlen(line) <= NAME_LEN && ft_strlen(line) > 0)
+			return (line);
+		else
+			write(1, "What's your name ?: ", 20);
+	}
+	return (NULL);
 }
 
 static void		client(int sock, const char *name)
@@ -44,6 +61,8 @@ static void		client(int sock, const char *name)
 				break ;
 			}
 			ft_putendl(buff);
+			if (ft_strcmp(buff, "Pseudo already used") == 0)
+				write_server(sock, pseudo());
 		}
 	}
 	close(sock);
@@ -75,8 +94,6 @@ static int		init_connection(const char *address, int port)
 int				main(int argc, char **argv)
 {
 	int		sock;
-	int		r;
-	char	buff[NAME_LEN + 1];
 
 	if (argc != 3)
 	{
@@ -84,9 +101,6 @@ int				main(int argc, char **argv)
 		exit(-1);
 	}
 	sock = init_connection(argv[1], ft_atoi(argv[2]));
-	write(1, "What's your name ?: ", 20);
-	r = read(0, buff, NAME_LEN);
-	buff[r - 1] = '\0';
-	client(sock, buff);
+	client(sock, pseudo());
 	return (0);
 }

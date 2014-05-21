@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_ctrl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 16:23:33 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 16:32:56 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/21 17:57:00 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int			new_client(t_server *server, int *actual, char *buff)
 	}
 	if (read_client(csock, buff) == -1)
 		return (-1);
+	while (check_pseudo(buff, server) == -1)
+	{
+		write_client(csock, "Pseudo already used");
+		if (read_client(csock, buff) == -1)
+			return (-1);
+	}
 	FD_SET(csock, &(server->rdfs));
 	server->max = csock > server->max ? csock : server->max;
 	t_client c;

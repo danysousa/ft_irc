@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 16:33:01 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/21 17:54:07 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	send_message_to_all_clients(t_client *clients, t_client client, int actual,
 void	clear_clients(t_client *clients, int actual);
 int		new_client(t_server *server, int *actual, char *buff);
 void	client_talking(t_server *server, int actual, char *buff);
+int		check_pseudo(char *buff, t_server *server);
 
 #endif

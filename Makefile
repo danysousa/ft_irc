@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/05/21 16:24:58 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/05/21 18:02:12 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SERVEUR_INC_SRC		=	$(addprefix $(SERVEUR)_dir/$(INC_DIR), $(SERVEUR_INC_FILES))
 
 SERVEUR_FILES		=	$(SERVEUR).c \
 						read_write.c \
-						client_ctrl.c
+						client_ctrl.c \
+						verif.c
 
 SERVEUR_SRC			=	$(addprefix $(SERVEUR)_dir/$(SRC_DIR), $(SERVEUR_FILES))
 
