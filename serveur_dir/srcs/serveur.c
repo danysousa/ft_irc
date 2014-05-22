@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 16:48:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 12:01:56 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 14:45:12 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static void		server(int sock)
 			exit_error("select");
 		if (FD_ISSET(STDIN_FILENO, &server.rdfs))
 			break ;
-		else if(FD_ISSET(server.sock, &server.rdfs))
+		else if (FD_ISSET(server.sock, &server.rdfs))
 		{
 			if (new_client(&server, &actual, buff) == -1)
 				continue ;
 		}
 		else
-			client_talking(&server, actual, buff);
+			client_talking(&server, &actual, buff);
 	}
 	clear_clients(server.clients, actual);
 	close(server.sock);

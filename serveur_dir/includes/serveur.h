@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 12:05:45 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 14:11:35 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <unistd.h>
 # include <netdb.h>
 
-# define INVALID_SOCKET -1
-# define SOCKET_ERROR -1
+# define INVALID_SOCKET			(-1)
+# define SOCKET_ERROR			(-1)
 # define CRLF					("\r\n")
 # define MAX_CLIENTS			(100)
 # define BUF_SIZE				(1024)
@@ -54,7 +54,7 @@ void	write_client(int sock, const char *buffer);
 void	send_message_to_all_clients(t_client *clients, t_client client, int actual, const char *buffer, char from_server);
 void	clear_clients(t_client *clients, int actual);
 int		new_client(t_server *server, int *actual, char *buff);
-void	client_talking(t_server *server, int actual, char *buff);
+void	client_talking(t_server *server, int *actual, char *buff);
 int		check_pseudo(char *buff, t_server *server);
 char	*cmd(char *buff, t_client *client, t_server *server);
 int		chk_char_name(char *line);
