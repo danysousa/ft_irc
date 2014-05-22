@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 16:23:33 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 15:34:54 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 17:41:23 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ void		clear_clients(t_client *clients, int actual)
 	while (i < actual)
 	{
 		close(clients[i].sock);
+		i++;
+	}
+}
+
+static void	init_client(t_server *server, int actual, char *name, int csock)
+{
+	int		i;
+
+	i = 0;
+	server->clients[actual].name = ft_strdup(name);
+	server->clients[actual].sock = csock;
+	server->clients[actual].nb_channel = 0;
+	while (i < MAX_CHANNEL)
+	{
+		server->clients[actual].channel[i] = NULL;
 		i++;
 	}
 }
@@ -49,8 +64,7 @@ int			new_client(t_server *server, int *actual, char *buff)
 	}
 	FD_SET(csock, &(server->rdfs));
 	server->max = csock > server->max ? csock : server->max;
-	server->clients[*actual].name = ft_strdup(buff);
-	server->clients[*actual].sock = csock;
+	init_client(server, *actual, buff, csock);
 	(*actual)++;
 	return (csock);
 }

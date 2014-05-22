@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:51:57 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 09:44:57 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/05/22 17:16:53 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void		client(int sock, const char *name)
 		{
 			if (read_server(sock, buff) == 0)
 			{
-				ft_printf("Server disconnected !\n");
+				printf("Server disconnected !\n");
 				break ;
 			}
 			ft_putendl(buff);
@@ -113,7 +113,7 @@ int				main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_printf("Usage: %s <machine> <port>\n", argv[0]);
+		printf("Usage: %s <machine> <port>\n", argv[0]);
 		exit(-1);
 	}
 	sock = init_connection(argv[1], ft_atoi(argv[2]));

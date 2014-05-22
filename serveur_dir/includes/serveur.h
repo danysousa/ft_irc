@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 14:11:35 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/22 17:41:29 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <unistd.h>
+# include <stdio.h>
 # include <netdb.h>
 
 # define INVALID_SOCKET			(-1)
@@ -26,6 +27,7 @@
 # define MAX_CLIENTS			(100)
 # define BUF_SIZE				(1024)
 # define NAME_LEN				(9)
+# define MAX_CHANNEL			(10)
 
 typedef struct sockaddr_in		t_sockaddr_in;
 typedef struct sockaddr			t_sockaddr;
@@ -34,6 +36,8 @@ typedef struct					s_client
 {
 	int							sock;
 	char						*name;
+	int							nb_channel;
+	char						*channel[MAX_CHANNEL];
 }								t_client;
 typedef struct					s_server
 {
