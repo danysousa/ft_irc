@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 17:54:07 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 12:05:45 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct in_addr			t_in_addr;
 typedef struct					s_client
 {
 	int							sock;
-	char						name[NAME_LEN];
+	char						*name;
 }								t_client;
 typedef struct					s_server
 {
@@ -42,6 +42,12 @@ typedef struct					s_server
 	fd_set						rdfs;
 	t_client					clients[MAX_CLIENTS];
 }								t_server;
+typedef struct					s_cmd
+{
+	char						*name;
+	char						*(*f)(char *, t_client *, t_server *);
+	int							len;
+}								t_cmd;
 
 int		read_client(int sock, char *buffer);
 void	write_client(int sock, const char *buffer);
@@ -50,5 +56,7 @@ void	clear_clients(t_client *clients, int actual);
 int		new_client(t_server *server, int *actual, char *buff);
 void	client_talking(t_server *server, int actual, char *buff);
 int		check_pseudo(char *buff, t_server *server);
+char	*cmd(char *buff, t_client *client, t_server *server);
+int		chk_char_name(char *line);
 
 #endif

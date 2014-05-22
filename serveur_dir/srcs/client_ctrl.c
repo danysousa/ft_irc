@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_ctrl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 16:23:33 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 19:59:55 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/05/22 12:16:24 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ int			new_client(t_server *server, int *actual, char *buff)
 	}
 	FD_SET(csock, &(server->rdfs));
 	server->max = csock > server->max ? csock : server->max;
-	t_client c;
-	c.sock = csock;
-	ft_strncpy(c.name, buff, NAME_LEN);
-	server->clients[*actual] = c;
+	server->clients[*actual].name = ft_strdup(buff);
+	server->clients[*actual].sock = csock;
 	(*actual)++;
 	return (csock);
 }
@@ -64,24 +62,31 @@ static void	remove_client(t_client *clt, int rm, int *actual)
 
 void		client_talking(t_server *server, int actual, char *buff)
 {
-	int		i;
+	int			i;
+	t_client	*client;
+	char		*tmp;
 
 	i = 0;
 	while (i < actual)
 	{
 		if (FD_ISSET(server->clients[i].sock, &(server->rdfs)))
 		{
-			t_client client = server->clients[i];
+			client = &(server->clients[i]);
 			if (read_client(server->clients[i].sock, buff) == 0)
 			{
 				close(server->clients[i].sock);
 				remove_client(server->clients, i, &actual);
-				ft_strncpy(buff, client.name, NAME_LEN);
+				ft_strncpy(buff, client->name, NAME_LEN);
 				ft_strncat(buff, " disconnected !", BUF_SIZE - ft_strlen(buff));
-				send_message_to_all_clients(server->clients, client, actual, buff, 1);
+				send_message_to_all_clients(server->clients, *client, actual, buff, 1);
+			}
+			else if (buff[0] == '/')
+			{
+				if ((tmp = cmd(buff, client, server)))
+					write_client(client->sock, tmp);
 			}
 			else
-				send_message_to_all_clients(server->clients, client, actual, buff, 0);
+				send_message_to_all_clients(server->clients, *client, actual, buff, 0);
 			break;
 		}
 		i++;

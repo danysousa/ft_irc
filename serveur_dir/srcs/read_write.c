@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_write.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 15:29:03 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 15:35:46 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/22 12:10:47 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <libft.h>
 #include "../includes/serveur.h"
 
@@ -45,7 +46,7 @@ void	send_message_to_all_clients(t_client *clients, t_client sender, int actual,
 		{
 			if (from_server == 0)
 			{
-				ft_strncpy(message, sender.name, BUF_SIZE);
+				ft_strncpy(message, sender.name, NAME_LEN);
 				ft_strncat(message, " : ", sizeof message - ft_strlen(message) - 1);
 			}
 			ft_strncat(message, buff, sizeof message - ft_strlen(message) - 1);

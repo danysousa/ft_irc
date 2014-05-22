@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 16:48:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 16:24:05 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/22 12:01:56 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ static void		init_fds(t_server *server, int actual)
 		FD_SET(server->clients[i++].sock, &(server->rdfs));
 }
 
+static void		init_server(t_server *server, int sock)
+{
+	int		i;
+
+	i = 0;
+	server->max = sock;
+	server->sock = sock;
+	while (i < MAX_CLIENTS)
+	{
+		server->clients[i].name = NULL;
+		i++;
+	}
+}
+
 static void		server(int sock)
 {
 	char			buff[BUF_SIZE + 1];
@@ -35,8 +49,7 @@ static void		server(int sock)
 	t_server		server;
 
 	actual = 0;
-	server.max = sock;
-	server.sock = sock;
+	init_server(&server, sock);
 	while (1)
 	{
 		init_fds(&server, actual);
