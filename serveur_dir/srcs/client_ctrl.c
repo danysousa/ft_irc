@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 16:23:33 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 17:41:23 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 18:48:25 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,8 @@ int			new_client(t_server *server, int *actual, char *buff)
 static void	remove_client(t_server *serv, int rm, int *actual)
 {
 	t_client	*clt;
-	// int			i;
-	// int			newmax;
-	// int			save;
 
 	clt = serv->clients;
-	// i = 0;
-	// if ((clt + rm)->sock == serv->max)
-	// {
-	// 	save = serv->max;
-	// 	serv->max = serv->sock;
-	// 	while (i < *actual - 1)
-	// 	{
-	// 		newmax = serv->clients[i].sock;
-	// 		serv->max = newmax > serv->max ? newmax : serv->max;
-	// 		i++;
-	// 	}
-	// }
 	ft_memmove(clt + rm, clt + rm + 1, (*actual - rm - 1) * sizeof(t_client));
 	(*actual)--;
 }

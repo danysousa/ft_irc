@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/22 10:55:34 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/22 18:22:07 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 19:08:03 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ static char		*ft_who(char *buff, t_client *client, t_server *server)
 	{
 		if (server->clients[i].name)
 		{
-			if (count)
-				write_client(client->sock, "\n");
-			write_client(client->sock, server->clients[i].name);
-			count++;
+			if (check_channel(*client, server->clients[i]))
+			{
+				if (count)
+					write_client(client->sock, "\n");
+				write_client(client->sock, server->clients[i].name);
+				count++;
+			}
 		}
 		i++;
 	}
@@ -116,16 +119,45 @@ static char		*ft_leave(char *buff, t_client *client, t_server *server)
 	return ("All channels leaved");
 }
 
+static char		*ft_msg(char *buff, t_client *client, t_server *server)
+{
+	char	**tmp;
+	char	*msg;
+	int		i;
+
+	i = 0;
+	tmp = ft_strsplit(buff, ' ');
+	if (ft_tabsize((void **)tmp) < 3)
+		return ("Usage : /msg <nick> <message>");
+	while (i < MAX_CLIENTS)
+	{
+		if (server->clients[i].name)
+		{
+			if (ft_strcmp(server->clients[i].name, tmp[1]) == 0)
+			{
+				msg = ft_strjoin(client->name, " whispers: ");
+				msg = ft_strjoin(msg, buff + ft_strlen(tmp[1]) + 6);
+				write_client(server->clients[i].sock, msg);
+				free(msg);
+				return (NULL);
+			}
+		}
+		i++;
+	}
+	return ("Nickname not found");
+}
+
 char			*cmd(char *buff, t_client *client, t_server *server)
 {
 	int					i;
-	static t_cmd		tb_cmd[5] =
+	static t_cmd		tb_cmd[6] =
 
 	{
 		{"/who", &ft_who, 4},
 		{"/nick ", &ft_nick, 6},
 		{"/join ", &ft_join, 6},
 		{"/leave", &ft_leave, 6},
+		{"/msg ", &ft_msg, 5},
 		{NULL, NULL, 0}
 	};
 	i = 0;

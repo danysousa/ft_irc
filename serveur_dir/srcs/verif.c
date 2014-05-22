@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 17:46:52 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/22 17:24:18 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 18:27:06 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,31 @@ int		check_pseudo(char *buff, t_server *server)
 		{
 			if (ft_strcmp(server->clients[i].name, buff) == 0)
 				return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int		check_channel(t_client sender, t_client dest)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	if (sender.nb_channel == 0 && dest.nb_channel == 0)
+		return (1);
+	while (i < MAX_CHANNEL)
+	{
+		j = 0;
+		while (j < MAX_CHANNEL)
+		{
+			if (sender.channel[i] && dest.channel[j])
+			{
+				if (ft_strcmp(sender.channel[i], dest.channel[j]) == 0)
+					return (1);
+			}
+			j++;
 		}
 		i++;
 	}
