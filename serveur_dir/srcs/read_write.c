@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 15:29:03 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 12:10:47 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 15:14:44 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	send_message_to_all_clients(t_client *clients, t_client sender, int actual,
 	int		i;
 	char	message[BUF_SIZE + 1];
 
+	ft_printf("%s\n", buff);
 	message[0] = 0;
 	i = 0;
 	while (i < actual)
