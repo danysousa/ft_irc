@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_ctrl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 16:23:33 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 17:57:00 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/21 19:59:55 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int			new_client(t_server *server, int *actual, char *buff)
 	return (csock);
 }
 
-static void	remove_client(t_client *clients, int to_remove, int *actual)
+static void	remove_client(t_client *clt, int rm, int *actual)
 {
-	ft_memmove(clients + to_remove, clients + to_remove + 1, (*actual - to_remove - 1) * sizeof(t_client));
+	ft_memmove(clt + rm, clt + rm + 1, (*actual - rm - 1) * sizeof(t_client));
 	(*actual)--;
 }
 

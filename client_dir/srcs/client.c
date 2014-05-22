@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:51:57 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 18:21:40 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/22 09:44:57 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@ static void		do_select(int sock, fd_set *rdfs)
 		exit_error("select");
 }
 
+int				chk_char_name(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isprint(line[i]) && line[i] != ' ')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 char			*pseudo()
 {
 	int		r;
@@ -31,7 +46,8 @@ char			*pseudo()
 	write(1, "What's your name ?: ", 20);
 	while ((r = get_next_line(0, &line)) > 0)
 	{
-		if (ft_strlen(line) <= NAME_LEN && ft_strlen(line) > 0)
+		if ((ft_strlen(line) <= NAME_LEN && ft_strlen(line) > 0)
+			&& chk_char_name(line))
 			return (line);
 		else
 			write(1, "What's your name ?: ", 20);
