@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/22 10:55:34 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/22 19:08:03 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/23 11:21:10 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,15 +153,14 @@ char			*cmd(char *buff, t_client *client, t_server *server)
 	static t_cmd		tb_cmd[6] =
 
 	{
-		{"/who", &ft_who, 4},
-		{"/nick ", &ft_nick, 6},
-		{"/join ", &ft_join, 6},
-		{"/leave", &ft_leave, 6},
-		{"/msg ", &ft_msg, 5},
-		{NULL, NULL, 0}
+	{"/who", &ft_who, 4},
+	{"/nick ", &ft_nick, 6},
+	{"/join ", &ft_join, 6},
+	{"/leave", &ft_leave, 6},
+	{"/msg ", &ft_msg, 5},
+	{NULL, NULL, 0}
 	};
 	i = 0;
-
 	while (tb_cmd[i].name != NULL)
 	{
 		if (ft_strncmp(tb_cmd[i].name, buff, tb_cmd[i].len) == 0)

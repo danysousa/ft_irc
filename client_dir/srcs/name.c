@@ -1,42 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_write.c                                       :+:      :+:    :+:   */
+/*   select.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/21 14:08:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/23 10:56:56 by mgarcin          ###   ########.fr       */
+/*   Created: 2014/05/23 10:52:05 by mgarcin           #+#    #+#             */
+/*   Updated: 2014/05/23 10:57:36 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include "../includes/client.h"
 
-int			read_server(int sock, char *buffer)
+int				chk_char_name(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isprint(line[i]) && line[i] != ' ')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+char			*pseudo(void)
 {
 	int		r;
+	char	*line;
 
-	r = 0;
-	if ((r = recv(sock, buffer, BUF_SIZE, 0)) < 0)
-		exit_error("recv");
-	buffer[r] = 0;
-	return (r);
-}
-
-void		write_server(int sock, const char *buffer)
-{
-	if (send(sock, buffer, ft_strlen((char *)buffer), 0) < 0)
-		exit_error("send");
-}
-
-void		read_msg(char *buff)
-{
-	char	*p;
-
-	read(0, buff, BUF_SIZE);
-	if ((p = ft_strstr(buff, "\n")) != NULL)
-		*p = 0;
-	else
-		buff[BUF_SIZE] = 0;
+	write(1, "What's your name ?: ", 20);
+	while ((r = get_next_line(0, &line)) > 0)
+	{
+		if ((ft_strlen(line) <= NAME_LEN && ft_strlen(line) > 0)
+			&& chk_char_name(line))
+			return (line);
+		else
+			write(1, "What's your name ?: ", 20);
+	}
+	return (NULL);
 }

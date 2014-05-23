@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:08:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 19:05:32 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/23 11:10:13 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef SERVEUR_H
+# define SERVEUR_H
 
 # include <sys/types.h>
 # include <sys/socket.h>
@@ -58,7 +58,7 @@ typedef struct					s_cmd
 
 int		read_client(int sock, char *buffer);
 void	write_client(int sock, const char *buffer);
-void	send_message_to_all_clients(t_client *clients, t_client client, int actual, char *buffer, char from_server);
+void	send_to_all(t_client *c, t_client cl, int act, char *buf, char fromsrv);
 void	clear_clients(t_client *clients, int actual);
 int		new_client(t_server *server, int *actual, char *buff);
 void	client_talking(t_server *server, int *actual, char *buff);

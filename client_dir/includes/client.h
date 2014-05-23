@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 18:51:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/21 15:26:54 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/23 10:58:29 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ typedef struct in_addr		t_in_addr;
 int							read_server(int sock, char *buffer);
 void						write_server(int sock, const char *buffer);
 void						read_msg(char *buff);
+char						*pseudo(void);
 
 #endif

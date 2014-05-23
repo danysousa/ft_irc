@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_ctrl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 16:23:33 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 18:48:25 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/23 11:12:19 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int			new_client(t_server *server, int *actual, char *buff)
 	t_sockaddr_in	csin;
 	socklen_t		sinsize;
 
-	sinsize = sizeof csin;
+	sinsize = sizeof(csin);
 	csock = accept(server->sock, (t_sockaddr *)&csin, &sinsize);
-	if(csock == SOCKET_ERROR)
+	if (csock == SOCKET_ERROR)
 	{
 		error("accept");
 		return (-1);
@@ -96,7 +96,7 @@ void		client_talking(t_server *server, int *actual, char *buff)
 				remove_client(server, i, actual);
 				ft_strncpy(buff, client.name, NAME_LEN);
 				ft_strncat(buff, " disconnected !", BUF_SIZE - ft_strlen(buff));
-				send_message_to_all_clients(server->clients, client, *actual, buff, 1);
+				send_to_all(server->clients, client, *actual, buff, 1);
 				ft_bzero(client.name, NAME_LEN);
 			}
 			else if (buff[0] == '/')
@@ -105,8 +105,8 @@ void		client_talking(t_server *server, int *actual, char *buff)
 					write_client(server->clients[i].sock, tmp);
 			}
 			else
-				send_message_to_all_clients(server->clients, client, *actual, buff, 0);
-			break;
+				send_to_all(server->clients, client, *actual, buff, 0);
+			break ;
 		}
 		i++;
 	}

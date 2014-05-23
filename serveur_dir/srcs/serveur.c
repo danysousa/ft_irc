@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/12 16:48:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 14:45:12 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/05/23 11:19:12 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,17 @@ static void		server(int sock)
 
 static int		init_connection(int port)
 {
-	int sock = socket(AF_INET, SOCK_STREAM, 0);
-	t_sockaddr_in sin;
+	int				sock;
+	t_sockaddr_in	sin;
 
+	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == INVALID_SOCKET)
 		exit_error("socket");
-
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
 	sin.sin_port = htons(port);
 	sin.sin_family = AF_INET;
-
-	if (bind(sock,(t_sockaddr *) &sin, sizeof sin) == SOCKET_ERROR)
+	if (bind(sock, (t_sockaddr *)&sin, sizeof(sin)) == SOCKET_ERROR)
 		exit_error("bind");
-
 	if (listen(sock, MAX_CLIENTS) == SOCKET_ERROR)
 		exit_error("listen");
 	return (sock);

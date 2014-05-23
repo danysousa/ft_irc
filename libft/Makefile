@@ -27,7 +27,7 @@ $(NAME):	$(OBJ_LIB)
 	@ranlib ../$(NAME).a
 	@echo ""
 	@printf '\033[33mCompilation of %s: \033[32mSuccess \
-\033[34m[\033[32m✔\033[34m]\n' $(NAME)
+\033[34m[\033[32m✔\033[34m]\033[0m\n' $(NAME)
 
 $(OBJ_LIB):	$(HEAD)
 

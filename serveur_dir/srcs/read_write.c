@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_write.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 15:29:03 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/22 19:05:49 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/05/23 11:19:57 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 
 int		read_client(int sock, char *buff)
 {
-	int n = 0;
+	int n;
 
+	n = 0;
 	if ((n = recv(sock, buff, BUF_SIZE, 0)) < 0)
 	{
 		error("recv");
@@ -33,33 +34,26 @@ void	write_client(int sock, const char *buff)
 		exit_error("send");
 }
 
-void	send_message_to_all_clients(t_client *clients, t_client sender, int actual, char *buff, char from_server)
+void	send_to_all(t_client *c, t_client s, int act, char *buff, char fromserv)
 {
 	int		i;
 	char	*message;
 
 	printf("%s\n", buff);
-	// message[0] = 0;
 	i = 0;
-	// if (from_server == 0)
-	// {
-	// 	ft_strncpy(message, sender.name, NAME_LEN);
-	// 	ft_strncat(message, " : ", sizeof message - ft_strlen(message) - 1);
-	// }
-	// ft_strncat(message, buff, sizeof message - ft_strlen(message) - 1);
-	if (!from_server)
+	if (!fromserv)
 	{
-		message = ft_strdup(sender.name);
+		message = ft_strdup(s.name);
 		message = ft_strjoin(message, " : ");
 		message = ft_strjoin(message, buff);
 	}
 	else
 		message = ft_strdup(buff);
-	while (i < actual)
+	while (i < act)
 	{
-		if (sender.sock != clients[i].sock && check_channel(sender, clients[i]))
+		if (s.sock != c[i].sock && check_channel(s, c[i]))
 		{
-			write_client(clients[i].sock, message);
+			write_client(c[i].sock, message);
 		}
 		i++;
 	}

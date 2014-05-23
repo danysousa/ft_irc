@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/05/22 11:08:16 by dsousa           ###   ########.fr        #
+#    Updated: 2014/05/23 10:58:01 by mgarcin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ CLIENT_INC_FILES	=	$(CLIENT).h
 CLIENT_INC_SRC		=	$(addprefix $(CLIENT)_dir/$(INC_DIR), $(CLIENT_INC_FILES))
 
 CLIENT_FILES		=	$(CLIENT).c \
-						read_write.c
+						read_write.c \
+						name.c
 
 CLIENT_SRC			=	$(addprefix $(CLIENT)_dir/$(SRC_DIR), $(CLIENT_FILES))
 
