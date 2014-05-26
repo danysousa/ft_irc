@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/05/23 10:58:01 by mgarcin          ###   ########.fr        #
+#    Created: 2014/02/26 13:13:47 by dsousa            #+#    #+#              #
+#    Updated: 2014/05/23 16:09:48 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,14 @@ SERVEUR_INC_FILES	=	$(SERVEUR).h
 
 SERVEUR_INC_SRC		=	$(addprefix $(SERVEUR)_dir/$(INC_DIR), $(SERVEUR_INC_FILES))
 
-SERVEUR_FILES		=	$(SERVEUR).c \
-						read_write.c \
-						client_ctrl.c \
-						verif.c \
-						cmd.c
+SERVEUR_FILES		=	$(SERVEUR).c	\
+						read_write.c	\
+						client_ctrl.c	\
+						verif.c			\
+						cmd.c			\
+						choose_cmd.c	\
+						leave.c			\
+						msg.c
 
 SERVEUR_SRC			=	$(addprefix $(SERVEUR)_dir/$(SRC_DIR), $(SERVEUR_FILES))
 
@@ -47,8 +50,7 @@ CLIENT_INC_FILES	=	$(CLIENT).h
 CLIENT_INC_SRC		=	$(addprefix $(CLIENT)_dir/$(INC_DIR), $(CLIENT_INC_FILES))
 
 CLIENT_FILES		=	$(CLIENT).c \
-						read_write.c \
-						name.c
+						read_write.c
 
 CLIENT_SRC			=	$(addprefix $(CLIENT)_dir/$(SRC_DIR), $(CLIENT_FILES))
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/22 10:55:34 by dsousa            #+#    #+#             */
-/*   Updated: 2014/05/23 11:21:10 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/05/24 16:47:29 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include "../includes/serveur.h"
 
-static char		*ft_who(char *buff, t_client *client, t_server *server)
+char	*ft_who(char *buff, t_client *client, t_server *server)
 {
 	int			i;
 	int			count;
@@ -38,29 +38,29 @@ static char		*ft_who(char *buff, t_client *client, t_server *server)
 	return (NULL);
 }
 
-static char		*ft_nick(char *buff, t_client *client, t_server *server)
+char	*ft_nick(char *buff, t_client *client, t_server *server)
 {
 	char		*tmp;
 
 	(void)client;
 	(void)server;
-	tmp = ft_strsub(buff, 6, ft_strlen(buff) - 6);
+	tmp = buff + 6;
 	if (!chk_char_name(tmp))
 		return ("Name format invalid");
 	if (check_pseudo(tmp, server) == -1)
 		return ("Name is already taken");
 	free(client->name);
 	client->name = ft_strdup(tmp);
-	return (NULL);
+	return ("Nickname changed !");
 }
 
-static char		*ft_join(char *buff, t_client *client, t_server *server)
+char	*ft_join(char *buff, t_client *client, t_server *server)
 {
 	int		i;
 	char	*tmp;
 
 	(void)server;
-	tmp = ft_strsub(buff, 6, ft_strlen(buff) - 6);
+	tmp = buff + 6;
 	i = 0;
 	if (!chk_char_name(tmp))
 		return ("Channel format invalid");
@@ -83,43 +83,7 @@ static char		*ft_join(char *buff, t_client *client, t_server *server)
 	return ("Channel join !");
 }
 
-static char		*ft_leave(char *buff, t_client *client, t_server *server)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	(void)server;
-	if (ft_strlen(buff) > 6)
-	{
-		if (buff[6] != ' ')
-			return ("Invalid command");
-		tmp = ft_strsub(buff, 7, ft_strlen(buff) - 7);
-		while (i < MAX_CHANNEL)
-		{
-			if (client->channel[i] && tmp)
-			{
-				if (ft_strcmp(client->channel[i], tmp) == 0)
-				{
-					client->channel[i] = NULL;
-					client->nb_channel--;
-					return ("Leave success");
-				}
-			}
-			i++;
-		}
-		return ("Channel not found");
-	}
-	else
-	{
-		while (i < MAX_CHANNEL)
-			client->channel[i++] = NULL;
-		client->nb_channel = 0;
-	}
-	return ("All channels leaved");
-}
-
-static char		*ft_msg(char *buff, t_client *client, t_server *server)
+char	*ft_msg(char *buff, t_client *client, t_server *server)
 {
 	char	**tmp;
 	char	*msg;
@@ -139,33 +103,11 @@ static char		*ft_msg(char *buff, t_client *client, t_server *server)
 				msg = ft_strjoin(msg, buff + ft_strlen(tmp[1]) + 6);
 				write_client(server->clients[i].sock, msg);
 				free(msg);
+				ft_free_tab((void **)tmp);
 				return (NULL);
 			}
 		}
 		i++;
 	}
 	return ("Nickname not found");
-}
-
-char			*cmd(char *buff, t_client *client, t_server *server)
-{
-	int					i;
-	static t_cmd		tb_cmd[6] =
-
-	{
-	{"/who", &ft_who, 4},
-	{"/nick ", &ft_nick, 6},
-	{"/join ", &ft_join, 6},
-	{"/leave", &ft_leave, 6},
-	{"/msg ", &ft_msg, 5},
-	{NULL, NULL, 0}
-	};
-	i = 0;
-	while (tb_cmd[i].name != NULL)
-	{
-		if (ft_strncmp(tb_cmd[i].name, buff, tb_cmd[i].len) == 0)
-			return (tb_cmd[i].f(buff, client, server));
-		i++;
-	}
-	return ("Command not found");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/12 16:48:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/23 11:19:12 by mgarcin          ###   ########.fr       */
+/*   Created: 2014/05/12 16:48:18 by dsousa            #+#    #+#             */
+/*   Updated: 2014/05/23 15:47:23 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void		server(int sock)
 			break ;
 		else if (FD_ISSET(server.sock, &server.rdfs))
 		{
+			ft_bzero(buff, BUF_SIZE + 1);
 			if (new_client(&server, &actual, buff) == -1)
 				continue ;
 		}

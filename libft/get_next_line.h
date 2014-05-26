@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/03 10:40:17 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/15 15:57:09 by rbenjami         ###   ########.fr       */
+/*   Created: 2013/11/19 12:21:39 by dsousa            #+#    #+#             */
+/*   Updated: 2014/05/01 13:58:48 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,4 @@ typedef struct		s_read
 	struct s_read	*next;
 }					t_read;
 
-#endif /* !GET_NEXT_LINE_H */
+#endif

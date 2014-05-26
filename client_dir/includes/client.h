@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/12 18:51:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/23 10:58:29 by mgarcin          ###   ########.fr       */
+/*   Created: 2014/05/12 18:51:49 by dsousa            #+#    #+#             */
+/*   Updated: 2014/05/23 16:10:05 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ typedef struct sockaddr_in	t_sockaddr_in;
 typedef struct sockaddr		t_sockaddr;
 typedef struct in_addr		t_in_addr;
 
+/*
+**	read_write.c
+*/
 int							read_server(int sock, char *buffer);
 void						write_server(int sock, const char *buffer);
 void						read_msg(char *buff);
-char						*pseudo(void);
+int							chk_char_name(char *line);
 
 #endif

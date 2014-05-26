@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_write.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/21 14:08:18 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/23 10:56:56 by mgarcin          ###   ########.fr       */
+/*   Created: 2014/05/21 14:08:18 by dsousa            #+#    #+#             */
+/*   Updated: 2014/05/24 15:56:14 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ int			read_server(int sock, char *buffer)
 
 void		write_server(int sock, const char *buffer)
 {
-	if (send(sock, buffer, ft_strlen((char *)buffer), 0) < 0)
+	char	*msg;
+
+	msg = ft_strjoin(buffer, "\n");
+	if (send(sock, msg, ft_strlen(msg), 0) < 0)
 		exit_error("send");
+	free(msg);
 }
 
 void		read_msg(char *buff)
@@ -39,4 +43,19 @@ void		read_msg(char *buff)
 		*p = 0;
 	else
 		buff[BUF_SIZE] = 0;
+}
+
+int			chk_char_name(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isprint(line[i]) && line[i] != ' ')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }

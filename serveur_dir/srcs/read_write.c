@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_write.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/21 15:29:03 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/23 11:19:57 by mgarcin          ###   ########.fr       */
+/*   Created: 2014/05/21 15:29:03 by dsousa            #+#    #+#             */
+/*   Updated: 2014/05/24 16:01:36 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		read_client(int sock, char *buff)
 		error("recv");
 		n = 0;
 	}
-	buff[n] = 0;
+	buff[n - 1] = 0;
 	return (n);
 }
 
@@ -34,27 +34,25 @@ void	write_client(int sock, const char *buff)
 		exit_error("send");
 }
 
-void	send_to_all(t_client *c, t_client s, int act, char *buff, char fromserv)
+void	msg_all(t_msg msg, int actual, char *buffer, int serv_msg)
 {
 	int		i;
 	char	*message;
 
-	printf("%s\n", buff);
 	i = 0;
-	if (!fromserv)
+	if (!serv_msg)
 	{
-		message = ft_strdup(s.name);
-		message = ft_strjoin(message, " : ");
-		message = ft_strjoin(message, buff);
+		message = ft_strjoin(msg.sender.name, " : ");
+		message = ft_strjoin(message, buffer);
 	}
 	else
-		message = ft_strdup(buff);
-	while (i < act)
+		message = ft_strdup(buffer);
+	while (i < actual)
 	{
-		if (s.sock != c[i].sock && check_channel(s, c[i]))
-		{
-			write_client(c[i].sock, message);
-		}
+		if (msg.sender.sock != msg.clients[i].sock
+			&& check_channel(msg.sender, msg.clients[i]))
+			write_client(msg.clients[i].sock, message);
 		i++;
 	}
+	free(message);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/12 18:51:57 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/05/23 10:58:13 by mgarcin          ###   ########.fr       */
+/*   Created: 2014/05/12 18:51:57 by dsousa            #+#    #+#             */
+/*   Updated: 2014/05/24 15:54:30 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ static void		do_select(int sock, fd_set *rdfs)
 	FD_SET(sock, rdfs);
 	if (select(sock + 1, rdfs, NULL, NULL, NULL) == -1)
 		exit_error("select");
+}
+
+char			*pseudo(void)
+{
+	int		r;
+	char	*line;
+
+	write(1, "What's your name ?: ", 20);
+	while ((r = get_next_line(0, &line)) > 0)
+	{
+		if ((ft_strlen(line) <= NAME_LEN && ft_strlen(line) > 0)
+			&& chk_char_name(line))
+			return (line);
+		else
+			write(1, "What's your name ?: ", 20);
+	}
+	return (NULL);
 }
 
 static void		client(int sock, const char *name)
@@ -84,7 +101,10 @@ int				main(int argc, char **argv)
 		printf("Usage: %s <machine> <port>\n", argv[0]);
 		exit(-1);
 	}
-	sock = init_connection(argv[1], ft_atoi(argv[2]));
+	if (ft_strcmp(argv[1], "localhost") == 0)
+		sock = init_connection("127.0.0.1", ft_atoi(argv[2]));
+	else
+		sock = init_connection(argv[1], ft_atoi(argv[2]));
 	client(sock, pseudo());
 	return (0);
 }
